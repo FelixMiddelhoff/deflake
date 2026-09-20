@@ -1,12 +1,12 @@
 using System;
 
-namespace Culprit;
+namespace Deflake;
 
 internal static class Program
 {
     private static int Main(string[] args)
     {
-        Console.Error.WriteLine("culprit: no command implemented yet.");
+        Console.Error.WriteLine("deflake: no command implemented yet.");
         return 2;
     }
 }

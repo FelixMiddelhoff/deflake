@@ -4,20 +4,20 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <RollForward>Major</RollForward>
-    <AssemblyName>culprit</AssemblyName>
-    <RootNamespace>Culprit</RootNamespace>
+    <AssemblyName>deflake</AssemblyName>
+    <RootNamespace>Deflake</RootNamespace>
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>culprit</ToolCommandName>
-    <PackageId>Culprit</PackageId>
+    <ToolCommandName>deflake</ToolCommandName>
+    <PackageId>Deflake</PackageId>
     <Description>Finds out why a test is flaky: reruns it under controlled conditions and names the factor that flips the result.</Description>
     <PackageTags>flaky-tests;test-flakiness;xunit;nunit;mstest;dotnet-tool;debugging;root-cause-analysis;delta-debugging</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageProjectUrl>https://github.com/FelixMiddelhoff/culprit</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/FelixMiddelhoff/deflake</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Culprit.Core\Culprit.Core.csproj" />
+    <ProjectReference Include="..\Deflake.Core\Deflake.Core.csproj" />
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 

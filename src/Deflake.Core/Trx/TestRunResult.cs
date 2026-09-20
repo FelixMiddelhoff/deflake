@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Culprit.Core.Trx;
+namespace Deflake.Core.Trx;
 
 /// <summary>All test results of one run of <c>dotnet test</c>, in the order the tests started.</summary>
 public sealed class TestRunResult

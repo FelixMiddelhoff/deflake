@@ -1,6 +1,6 @@
 ---
 name: Cause request
-about: A cause of flaky tests Culprit does not look for yet
+about: A cause of flaky tests Deflake does not look for yet
 labels: enhancement
 ---
 

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Culprit.Core.Search;
+namespace Deflake.Core.Search;
 
 /// <summary>The outcome of a delta debugging search.</summary>
 public sealed class DeltaDebuggingResult<T>

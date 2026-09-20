@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Culprit.Core\Culprit.Core.csproj" />
+    <ProjectReference Include="..\..\src\Deflake.Core\Deflake.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

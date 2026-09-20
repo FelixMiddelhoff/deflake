@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Culprit.Core.Search;
+using Deflake.Core.Search;
 using Xunit;
 
-namespace Culprit.Core.Tests;
+namespace Deflake.Core.Tests;
 
 public class DeltaDebuggingTests
 {
     private static readonly IReadOnlyList<string> Letters = "abcdefghij".Select(c => c.ToString()).ToList();
 
     [Fact]
-    public void A_single_culprit_is_found()
+    public void A_single_deflake_is_found()
     {
         var result = DeltaDebugging.Minimize(Letters, set => set.Contains("g"));
 
@@ -127,7 +127,7 @@ public class DeltaDebuggingTests
     }
 
     [Fact]
-    public void A_single_culprit_among_many_needs_few_experiments()
+    public void A_single_deflake_among_many_needs_few_experiments()
     {
         var items = Enumerable.Range(0, 64).ToList();
 

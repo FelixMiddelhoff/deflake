@@ -15,11 +15,11 @@ dotnet test
 
 ## How the code is organised
 
-- `src/Culprit.Core`: the logic, with no dependencies. Result parsing,
+- `src/Deflake.Core`: the logic, with no dependencies. Result parsing,
   statistics, delta debugging, experiments, verdicts and reports. Everything
   that needs to run tests goes through `ITestRunner`, so the logic is tested
   against scripted fakes instead of real test runs.
-- `src/Culprit`: the console front end. Argument parsing and printing only.
+- `src/Deflake`: the console front end. Argument parsing and printing only.
 - `tests/`: unit tests. Every experiment and verdict has tests for the case it
   reports, the negative case and edge cases.
 - `docs/`: tutorial and reference. Update them whenever behaviour, options or

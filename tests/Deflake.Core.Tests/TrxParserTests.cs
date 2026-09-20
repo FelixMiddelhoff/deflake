@@ -2,10 +2,10 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Culprit.Core.Trx;
+using Deflake.Core.Trx;
 using Xunit;
 
-namespace Culprit.Core.Tests;
+namespace Deflake.Core.Tests;
 
 public class TrxParserTests
 {

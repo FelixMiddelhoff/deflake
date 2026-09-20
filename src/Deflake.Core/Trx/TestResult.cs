@@ -1,6 +1,6 @@
 using System;
 
-namespace Culprit.Core.Trx;
+namespace Deflake.Core.Trx;
 
 /// <summary>The result of one test (one theory case counts as one test) in one test run.</summary>
 public sealed class TestResult

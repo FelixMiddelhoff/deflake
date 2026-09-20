@@ -6,7 +6,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace Culprit.Core.Trx;
+namespace Deflake.Core.Trx;
 
 /// <summary>
 /// Reads the TRX result files that <c>dotnet test --logger trx</c> writes. Test frameworks fill

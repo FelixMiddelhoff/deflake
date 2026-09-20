@@ -71,10 +71,10 @@ jobs:
         with:
           dotnet-version: 8.0.x
       - name: Pack
-        run: dotnet pack src/Culprit --configuration Release --output artifacts
-      - name: Package is a tool named culprit
+        run: dotnet pack src/Deflake --configuration Release --output artifacts
+      - name: Package is a tool named deflake
         run: |
-          package="artifacts/Culprit.${{ needs.check.outputs.version }}.nupkg"
+          package="artifacts/Deflake.${{ needs.check.outputs.version }}.nupkg"
           listing=$(unzip -Z1 "$package")
           echo "$listing"
           echo "$listing" | grep -q "^tools/.*/any/DotnetToolSettings.xml$"

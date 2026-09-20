@@ -1,8 +1,8 @@
 using System;
-using Culprit.Core.Execution;
+using Deflake.Core.Execution;
 using Xunit;
 
-namespace Culprit.Core.Tests;
+namespace Deflake.Core.Tests;
 
 public class TestFilterTests
 {

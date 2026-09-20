@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>Culprit.Core</RootNamespace>
+    <RootNamespace>Deflake.Core</RootNamespace>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Culprit.Core.Tests" />
+    <InternalsVisibleTo Include="Deflake.Core.Tests" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,10 @@
 using System;
 
-namespace Culprit.Core.Statistics;
+namespace Deflake.Core.Statistics;
 
 /// <summary>
 /// How often a test failed in a number of runs, with the uncertainty that comes from having
-/// only that many runs. Every claim Culprit makes about a factor rests on comparing these.
+/// only that many runs. Every claim Deflake makes about a factor rests on comparing these.
 /// </summary>
 public readonly struct FailureRate
 {

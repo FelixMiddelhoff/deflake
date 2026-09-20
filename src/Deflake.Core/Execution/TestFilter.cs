@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Culprit.Core.Execution;
+namespace Deflake.Core.Execution;
 
 /// <summary>
 /// Builds the <c>--filter</c> expression that makes <c>dotnet test</c> run exactly the given tests.

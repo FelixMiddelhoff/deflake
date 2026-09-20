@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace Culprit.Core.Search;
+namespace Deflake.Core.Search;
 
 /// <summary>
 /// Delta debugging (Zeller's <c>ddmin</c>): finds a small subset of <c>items</c> that still makes a
-/// test fail. Culprit uses it to find which tests that ran before a test make it fail.
+/// test fail. Deflake uses it to find which tests that ran before a test make it fail.
 /// </summary>
 /// <remarks>
 /// Subsets keep the original order of the items, which matters because test order matters.

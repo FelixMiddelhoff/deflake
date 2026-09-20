@@ -5,13 +5,13 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Culprit.Core", "src\Culprit.Core\Culprit.Core.csproj", "{E4150BE9-C172-48DF-A54D-18EC6CC43028}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deflake.Core", "src\Deflake.Core\Deflake.Core.csproj", "{E4150BE9-C172-48DF-A54D-18EC6CC43028}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Culprit", "src\Culprit\Culprit.csproj", "{B0CB7F85-3DE9-44B2-A906-1502DBB3EE74}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deflake", "src\Deflake\Deflake.csproj", "{B0CB7F85-3DE9-44B2-A906-1502DBB3EE74}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Culprit.Core.Tests", "tests\Culprit.Core.Tests\Culprit.Core.Tests.csproj", "{C440006D-4432-454B-A24B-C646E44DDC62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deflake.Core.Tests", "tests\Deflake.Core.Tests\Deflake.Core.Tests.csproj", "{C440006D-4432-454B-A24B-C646E44DDC62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

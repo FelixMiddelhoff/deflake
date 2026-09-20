@@ -1,8 +1,8 @@
-# Culprit
+# Deflake
 
 Don't retry the flaky test. Name the culprit.
 
-Culprit is a `dotnet` tool that finds out **why** a test is flaky. It reruns
+Deflake is a `dotnet` tool that finds out **why** a test is flaky. It reruns
 the failing test under controlled conditions, changes one factor at a time
 (other tests running before it, parallelism, CPU load, culture, time zone)
 and reports which factor flips the result, with the evidence and a command

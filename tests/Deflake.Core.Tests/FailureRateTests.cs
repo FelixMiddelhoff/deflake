@@ -1,8 +1,8 @@
 using System;
-using Culprit.Core.Statistics;
+using Deflake.Core.Statistics;
 using Xunit;
 
-namespace Culprit.Core.Tests;
+namespace Deflake.Core.Tests;
 
 public class FailureRateTests
 {

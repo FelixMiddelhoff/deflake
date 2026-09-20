@@ -13,4 +13,4 @@ labels: bug
 ```
 ```
 
-**Environment**: Culprit version, .NET SDK version (`dotnet --version`), operating system, test framework and version
+**Environment**: Deflake version, .NET SDK version (`dotnet --version`), operating system, test framework and version

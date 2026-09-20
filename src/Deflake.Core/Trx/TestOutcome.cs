@@ -1,4 +1,4 @@
-namespace Culprit.Core.Trx;
+namespace Deflake.Core.Trx;
 
 /// <summary>What happened to one test, reduced to the cases the analysis cares about.</summary>
 public enum TestOutcome

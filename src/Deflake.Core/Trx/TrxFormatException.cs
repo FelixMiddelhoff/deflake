@@ -1,6 +1,6 @@
 using System;
 
-namespace Culprit.Core.Trx;
+namespace Deflake.Core.Trx;
 
 /// <summary>The file is not a readable TRX test result file.</summary>
 public sealed class TrxFormatException : Exception
