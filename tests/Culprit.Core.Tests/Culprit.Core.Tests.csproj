@@ -17,4 +17,8 @@
     <ProjectReference Include="..\..\src\Culprit.Core\Culprit.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Fixtures\*.trx" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

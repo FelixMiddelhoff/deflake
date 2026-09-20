@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="69dfabba-50fb-496e-9bda-feef086394f0" name="runner@BUILDHOST 2026-09-20 22:36:29" runUser="BUILDHOST\runner" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-09-20T22:36:29.9604525+02:00" queuing="2026-09-20T22:36:29.9604528+02:00" start="2026-09-20T22:36:28.7446343+02:00" finish="2026-09-20T22:36:29.9667732+02:00" />
+  <TestSettings name="default" id="8a4b3218-6afc-496a-be7b-24dbc6c08bd1">
+    <Deployment runDeploymentRoot="runner_BUILDHOST_2026-09-20_22_36_29" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5aed568d-d13f-4180-b8e6-44359cb631f3" testId="85b7daab-866a-94be-7af0-db22856cee72" testName="Passes" computerName="BUILDHOST" duration="00:00:00.0000380" startTime="2026-09-20T22:36:29.8420680+02:00" endTime="2026-09-20T22:36:29.8421055+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5aed568d-d13f-4180-b8e6-44359cb631f3" />
+    <UnitTestResult executionId="dc32d490-e994-46bf-85b1-1068eb207432" testId="387cb456-a800-7b09-89b7-83b8d5a7389d" testName="Skipped" computerName="BUILDHOST" duration="00:00:00.0002410" startTime="2026-09-20T22:36:29.8421116+02:00" endTime="2026-09-20T22:36:29.8423520+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dc32d490-e994-46bf-85b1-1068eb207432">
+      <Output>
+        <StdOut>not now</StdOut>
+        <ErrorInfo>
+          <Message>not now</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="16097166-bded-4638-babc-a473c1cf3a59" testId="aefee634-75f8-4a17-362a-d3be22e1873e" testName="Cases(2)" computerName="BUILDHOST" duration="00:00:00.0306600" startTime="2026-09-20T22:36:29.8098833+02:00" endTime="2026-09-20T22:36:29.8405424+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="16097166-bded-4638-babc-a473c1cf3a59">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: 1&#xD;
+  But was:  2&#xD;
+</Message>
+          <StackTrace>   at Fix.SampleTests.Cases(Int32 n) in C:\Users\runner\AppData\Local\Temp\culfix\N\Tests.cs:line 12&#xD;
+   at InvokeStub_SampleTests.Cases(Object, Span`1)&#xD;
+
+1)    at Fix.SampleTests.Cases(Int32 n) in C:\Users\runner\AppData\Local\Temp\culfix\N\Tests.cs:line 12&#xD;
+   at InvokeStub_SampleTests.Cases(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ce9934a6-92e3-4e7c-8fdf-e07afb31a790" testId="fb78a486-938d-d848-4957-99f392944cae" testName="Cases(1)" computerName="BUILDHOST" duration="00:00:00.0058380" startTime="2026-09-20T22:36:29.8031273+02:00" endTime="2026-09-20T22:36:29.8089190+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ce9934a6-92e3-4e7c-8fdf-e07afb31a790" />
+    <UnitTestResult executionId="5b4b1b6e-bb6e-46d9-89d7-190795abe0dd" testId="93142164-2065-e10e-9fae-1c8c9d69dbc7" testName="Fails" computerName="BUILDHOST" duration="00:00:00.0005170" startTime="2026-09-20T22:36:29.8415374+02:00" endTime="2026-09-20T22:36:29.8420541+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5b4b1b6e-bb6e-46d9-89d7-190795abe0dd">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: 1&#xD;
+  But was:  2&#xD;
+</Message>
+          <StackTrace>   at Fix.SampleTests.Fails() in C:\Users\runner\AppData\Local\Temp\culfix\N\Tests.cs:line 9&#xD;
+
+1)    at Fix.SampleTests.Fails() in C:\Users\runner\AppData\Local\Temp\culfix\N\Tests.cs:line 9&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9ad9d087-02d2-4a31-b39b-17459874f85b" testId="b19bd983-63af-1450-2d66-4805e065f085" testName="Throws" computerName="BUILDHOST" duration="00:00:00.0012780" startTime="2026-09-20T22:36:29.8423611+02:00" endTime="2026-09-20T22:36:29.8436387+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9ad9d087-02d2-4a31-b39b-17459874f85b">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : boom</Message>
+          <StackTrace>   at Fix.SampleTests.Throws() in C:\Users\runner\AppData\Local\Temp\culfix\N\Tests.cs:line 11&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Throws" storage="c:\users\runner\appdata\local\temp\culfix\n\bin\debug\net8.0\n.dll" id="b19bd983-63af-1450-2d66-4805e065f085">
+      <Execution id="9ad9d087-02d2-4a31-b39b-17459874f85b" />
+      <TestMethod codeBase="C:\Users\runner\AppData\Local\Temp\culfix\N\bin\Debug\net8.0\N.dll" adapterTypeName="executor://nunit3testexecutor/" className="Fix.SampleTests" name="Throws" />
+    </UnitTest>
+    <UnitTest name="Fails" storage="c:\users\runner\appdata\local\temp\culfix\n\bin\debug\net8.0\n.dll" id="93142164-2065-e10e-9fae-1c8c9d69dbc7">
+      <Execution id="5b4b1b6e-bb6e-46d9-89d7-190795abe0dd" />
+      <TestMethod codeBase="C:\Users\runner\AppData\Local\Temp\culfix\N\bin\Debug\net8.0\N.dll" adapterTypeName="executor://nunit3testexecutor/" className="Fix.SampleTests" name="Fails" />
+    </UnitTest>
+    <UnitTest name="Passes" storage="c:\users\runner\appdata\local\temp\culfix\n\bin\debug\net8.0\n.dll" id="85b7daab-866a-94be-7af0-db22856cee72">
+      <Execution id="5aed568d-d13f-4180-b8e6-44359cb631f3" />
+      <TestMethod codeBase="C:\Users\runner\AppData\Local\Temp\culfix\N\bin\Debug\net8.0\N.dll" adapterTypeName="executor://nunit3testexecutor/" className="Fix.SampleTests" name="Passes" />
+    </UnitTest>
+    <UnitTest name="Cases(1)" storage="c:\users\runner\appdata\local\temp\culfix\n\bin\debug\net8.0\n.dll" id="fb78a486-938d-d848-4957-99f392944cae">
+      <Execution id="ce9934a6-92e3-4e7c-8fdf-e07afb31a790" />
+      <TestMethod codeBase="C:\Users\runner\AppData\Local\Temp\culfix\N\bin\Debug\net8.0\N.dll" adapterTypeName="executor://nunit3testexecutor/" className="Fix.SampleTests" name="Cases(1)" />
+    </UnitTest>
+    <UnitTest name="Cases(2)" storage="c:\users\runner\appdata\local\temp\culfix\n\bin\debug\net8.0\n.dll" id="aefee634-75f8-4a17-362a-d3be22e1873e">
+      <Execution id="16097166-bded-4638-babc-a473c1cf3a59" />
+      <TestMethod codeBase="C:\Users\runner\AppData\Local\Temp\culfix\N\bin\Debug\net8.0\N.dll" adapterTypeName="executor://nunit3testexecutor/" className="Fix.SampleTests" name="Cases(2)" />
+    </UnitTest>
+    <UnitTest name="Skipped" storage="c:\users\runner\appdata\local\temp\culfix\n\bin\debug\net8.0\n.dll" id="387cb456-a800-7b09-89b7-83b8d5a7389d">
+      <Execution id="dc32d490-e994-46bf-85b1-1068eb207432" />
+      <TestMethod codeBase="C:\Users\runner\AppData\Local\Temp\culfix\N\bin\Debug\net8.0\N.dll" adapterTypeName="executor://nunit3testexecutor/" className="Fix.SampleTests" name="Skipped" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="85b7daab-866a-94be-7af0-db22856cee72" executionId="5aed568d-d13f-4180-b8e6-44359cb631f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="387cb456-a800-7b09-89b7-83b8d5a7389d" executionId="dc32d490-e994-46bf-85b1-1068eb207432" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aefee634-75f8-4a17-362a-d3be22e1873e" executionId="16097166-bded-4638-babc-a473c1cf3a59" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fb78a486-938d-d848-4957-99f392944cae" executionId="ce9934a6-92e3-4e7c-8fdf-e07afb31a790" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="93142164-2065-e10e-9fae-1c8c9d69dbc7" executionId="5b4b1b6e-bb6e-46d9-89d7-190795abe0dd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b19bd983-63af-1450-2d66-4805e065f085" executionId="9ad9d087-02d2-4a31-b39b-17459874f85b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Ergebnisse nicht in einer Liste" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Alle geladenen Ergebnisse" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="5" passed="2" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.5.0.0: Test execution started&#xD;
+Running all tests in C:\Users\runner\AppData\Local\Temp\culfix\N\bin\Debug\net8.0\N.dll&#xD;
+   NUnit3TestExecutor discovered 6 of 6 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+Skipped: not now&#xD;
+NUnit Adapter 4.5.0.0: Test execution complete&#xD;
+Der Test "Skipped" wurde im Testlauf übersprungen.&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
