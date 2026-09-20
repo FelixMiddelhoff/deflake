@@ -1,0 +1,96 @@
+name: release
+
+# Push a tag like v0.2.0 to release. Everything is checked before anything is
+# published: the tag, the project version and the CHANGELOG must agree, and the
+# tests must pass on all three operating systems. Then the GitHub release is
+# created and the tool is pushed to nuget.org through trusted publishing.
+# Pushing to nuget.org cannot be undone (a version number can never be reused),
+# which is why the checks come first.
+on:
+  push:
+    tags: [ 'v[0-9]+.[0-9]+.[0-9]+*' ]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      prerelease: ${{ steps.version.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Version is the same everywhere
+        id: version
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          bad=0
+          if ! grep -qF "<Version>$version</Version>" Directory.Build.props; then
+            echo "::error file=Directory.Build.props::Version is not $version"; bad=1
+          fi
+          if ! grep -qF "## [$version]" CHANGELOG.md; then
+            echo "::error file=CHANGELOG.md::No entry for $version"; bad=1
+          fi
+          major="${version%%.*}"
+          if [ "$major" = "0" ]; then
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+            # 1.0 is a promise about verdict ids and behaviour: never by accident.
+            echo "::error::$GITHUB_REF_NAME is 1.0 or later, which needs the maintainer's explicit go-ahead. Remove this check in release.yml when that is given."
+            bad=1
+          fi
+          exit $bad
+
+  test:
+    needs: check
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - run: dotnet build --configuration Release
+      - run: dotnet test --configuration Release --no-build
+
+  publish:
+    needs: [check, test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write # lets nuget.org trust this workflow (trusted publishing), no stored API key
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Pack
+        run: dotnet pack src/Culprit --configuration Release --output artifacts
+      - name: Package is a tool named culprit
+        run: |
+          package="artifacts/Culprit.${{ needs.check.outputs.version }}.nupkg"
+          listing=$(unzip -Z1 "$package")
+          echo "$listing"
+          echo "$listing" | grep -q "^tools/.*/any/DotnetToolSettings.xml$"
+      - name: GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          flags=""
+          if [ "${{ needs.check.outputs.prerelease }}" = "true" ]; then flags="--prerelease"; fi
+          gh release create "$GITHUB_REF_NAME" artifacts/*.nupkg $flags --title "$GITHUB_REF_NAME" --generate-notes
+      - name: Get a short-lived nuget.org key
+        id: nuget-login
+        uses: NuGet/login@v1
+        with:
+          user: felixmiddelhoff
+      - name: Publish to nuget.org
+        env:
+          NUGET_API_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
+        run: dotnet nuget push "artifacts/*.nupkg" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
