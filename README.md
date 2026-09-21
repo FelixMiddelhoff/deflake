@@ -5,6 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tests passing](https://img.shields.io/badge/tests-479%20passing-brightgreen)](https://github.com/FelixMiddelhoff/deflake)
 
+> **Early release (v0.1.0).** Core investigation pipeline complete and tested. More features coming: runtime record/replay helpers, test-smell analyzer, CI history mining.
+
 Don't retry the flaky test. Name the culprit.
 
 **Deflake** is a `dotnet` tool that finds out **why** a test is flaky. It reruns the failing test under controlled conditions, changes one factor at a time (other tests running before it, parallelism, CPU load, culture, time zone) and reports which factor flips the result, with the evidence and a command that reproduces the failure.
