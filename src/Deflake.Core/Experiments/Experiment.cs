@@ -34,6 +34,20 @@ public abstract class Experiment
     /// <exception cref="OperationCanceledException">The context's token or <paramref name="cancellationToken"/> was cancelled.</exception>
     public Task<ExperimentResult> RunAsync(TestRunContext context, CancellationToken cancellationToken = default)
     {
+        ValidateContext(context);
+        return RunLinkedAsync(context, cancellationToken);
+    }
+
+    /// <summary>
+    /// The checks every public entry point makes before touching the context. Most experiments only
+    /// need <see cref="RunAsync"/>, which calls this itself; the polluter search exposes a second
+    /// entry point that returns its own richer result type and calls this too, so a bad context is
+    /// refused the same way everywhere.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="context"/> is null.</exception>
+    /// <exception cref="ArgumentException">The context asks for fewer maximum runs than initial runs.</exception>
+    protected static void ValidateContext(TestRunContext context)
+    {
         if (context is null)
         {
             throw new ArgumentNullException(nameof(context));
@@ -45,8 +59,6 @@ public abstract class Experiment
                 $"The run ceiling ({context.MaxRuns}) is below the {context.InitialRuns} runs every condition starts with.",
                 nameof(context));
         }
-
-        return RunLinkedAsync(context, cancellationToken);
     }
 
     /// <summary>The experiment itself. The token passed here already covers the context's token.</summary>
