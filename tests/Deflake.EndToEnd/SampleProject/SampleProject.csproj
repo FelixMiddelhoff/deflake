@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    A tiny real xUnit project with known, designed outcomes (see SampleTests.cs). It exists only
+    as ground truth for ExecutionTests, which builds it once and then points DotnetTestRunner at
+    it: this is how deflake verifies its own process handling against a real "dotnet test" run
+    instead of trusting FakeTestRunner alone. Never referenced by Deflake.sln, so a plain
+    "dotnet test" at the repo root does not run it (one of its tests always fails by design).
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>SampleProject</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+</Project>
