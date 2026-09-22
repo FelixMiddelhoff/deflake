@@ -10,7 +10,9 @@ internal sealed class AddressInUseHeuristic : IHeuristic
     public HeuristicResult? Match(string? errorMessage, string? stackTrace)
     {
         if (string.IsNullOrEmpty(errorMessage) && string.IsNullOrEmpty(stackTrace))
+        {
             return null;
+        }
 
         var combined = (errorMessage ?? "") + " " + (stackTrace ?? "");
         var lower = combined.ToLowerInvariant();

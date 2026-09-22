@@ -33,7 +33,9 @@ public sealed class HeuristicsRegistry
         var findings = new HeuristicFindings();
 
         if (string.IsNullOrEmpty(errorMessage) && string.IsNullOrEmpty(stackTrace))
+        {
             return findings;
+        }
 
         var results = new List<HeuristicResult>();
 
@@ -41,7 +43,9 @@ public sealed class HeuristicsRegistry
         {
             var result = heuristic.Match(errorMessage, stackTrace);
             if (result != null)
+            {
                 results.Add(result);
+            }
         }
 
         // Sort by confidence descending
