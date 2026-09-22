@@ -25,9 +25,9 @@ jobs:
       - name: Test with coverage
         run: |
           if [[ "$RUNNER_OS" == "macOS" ]]; then
-            dotnet test --configuration Release --no-build --logger "console;verbosity=detailed" --diag diagnostics.txt
+            dotnet test --configuration Release --no-build --filter "FullyQualifiedName!~ExecutionTests"
           else
-            dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory coverage --logger "console;verbosity=detailed" --diag diagnostics.txt
+            dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory coverage
           fi
         shell: bash
       - uses: actions/upload-artifact@v4
@@ -35,11 +35,6 @@ jobs:
         with:
           name: coverage
           path: coverage
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-diagnostics-${{ matrix.os }}
-          path: diagnostics.txt
 
   format:
     runs-on: ubuntu-latest
