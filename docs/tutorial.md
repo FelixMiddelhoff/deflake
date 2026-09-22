@@ -246,6 +246,102 @@ var formatted = Math.PI.ToString();  // "3,14" in de-DE, "3.14" in en-US
 var formatted = Math.PI.ToString(CultureInfo.InvariantCulture);  // Always "3.14"
 ```
 
+## Record and Replay (Advanced, Opt-In)
+
+Some timing-sensitive failures can be difficult to diagnose with experiments alone. Record and replay is an **optional, advanced feature** that helps you determine whether a failure is caused by specific time and random values, or by thread interleaving and system load.
+
+### What You Need
+
+Record and replay requires code changes:
+
+1. **Your test project must use dependency injection** for `TimeProvider` and `Random`. Code that calls `DateTime.UtcNow` or `new Random()` directly cannot be recorded — Deflake does not rewrite IL or hook the CLR.
+
+2. **Install the optional NuGet package:**
+
+```bash
+dotnet add package Deflake.Runtime
+```
+
+3. **Wire DeflakeRecorder into your composition root:**
+
+```csharp
+services.AddSingleton<TimeProvider>(DeflakeRecorder.TimeProvider);
+services.AddSingleton<Random>(_ => DeflakeRecorder.Random());
+```
+
+The test itself does not change. `DeflakeRecorder.TimeProvider` behaves like `TimeProvider.System` in normal runs and like `TimeProvider.System` under record/replay too — it is a transparent passthrough unless you run `deflake investigate --record-replay`.
+
+### A Real Example
+
+The sample project at `tests/Deflake.EndToEnd/RuntimeSampleProject` contains a timing-sensitive test that uses `DeflakeRecorder`:
+
+```csharp
+[Fact]
+public async Task Operation_completes_before_timeout()
+{
+    var random = DeflakeRecorder.Random();
+    var timeProvider = DeflakeRecorder.TimeProvider;
+    
+    var delayMs = random.Next(10, 100);  // Random delay
+    var timeoutMs = 80;                  // Aggressive timeout
+    
+    var startTime = timeProvider.GetUtcNow();
+    await Task.Delay(delayMs);  // Real async work
+    
+    var elapsed = timeProvider.GetUtcNow() - startTime;
+    Assert.True(elapsed.TotalMilliseconds < timeoutMs);
+}
+```
+
+This test passes most of the time but occasionally times out when system load increases the duration of `Task.Delay`.
+
+### Run an Investigation with Record/Replay
+
+Enable record/replay with the `--record-replay` flag:
+
+```bash
+deflake investigate RuntimeSampleProject.csproj --record-replay
+```
+
+Deflake will:
+
+1. **Record a failing run:** If a failure is found, Deflake records every call to `TimeProvider` and `Random` that happened during that run to a session file.
+
+2. **Replay the failure:** Deflake then re-runs the test multiple times with the recorded time and random values, without the real system load.
+
+3. **Compare results:** If replay succeeds but the live run fails, then the failure was driven by thread interleaving and system load, not by the time/random values themselves. If replay also fails, then the specific time and random values are sufficient to reproduce the failure.
+
+### Understanding the Report
+
+In the verdict output, look for a new `RecordReplay` evidence row:
+
+```
+Condition                   | Passed | Failed |                      Rate
+----------------------------+--------+--------+--------------------------
+RecordReplay=Live           |     15 |      5 | 25.0% (95% 8.7%–48.7%)
+RecordReplay=Replayed       |      0 |     20 | 100.0% (95% 83.2%–100.0%)
+```
+
+**Replay matched (or beat) live failure rate** → The recorded time and random values are sufficient to cause the failure. The bug is that specific values trigger it, not thread interleaving.
+
+**Replay succeeded but live failed** → The failure requires thread interleaving. Recorded values are not the root cause.
+
+**No RecordReplay row** → The test does not use `Deflake.Runtime`, or no failure was recorded.
+
+### Limitations
+
+- **Only records time/random:** Task scheduling (thread interleaving) is recorded for diagnostics but not replayed in v1. Record/replay can rule in "the values cause it" but cannot rule out "interleaving still contributes."
+
+- **Requires code changes:** Unlike the rest of Deflake, record/replay needs you to use dependency injection for `TimeProvider` and `Random`.
+
+- **Determinism within a machine:** The test must use the same `TimeProvider`/`Random` calls in the same order. If a test conditionally calls different code paths, replay may diverge.
+
+### Next Steps
+
+- For a complete walk-through, see the sample at `tests/Deflake.EndToEnd/RuntimeSampleProject`.
+- Read the [design document](../deflake-planning/deflake-runtime-design.md) for technical details on how record/replay works.
+- Record/replay is optional; most flaky tests can be diagnosed with the standard experiments alone.
+
 ## Running Deflake in CI/CD
 
 ### GitHub Actions

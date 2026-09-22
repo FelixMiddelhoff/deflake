@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    A tiny real xUnit project with a timing-sensitive test that uses DeflakeRecorder. It exists only
+    as ground truth for the record/replay feature in Deflake.Runtime. The test deliberately passes
+    ~80% of the time (due to real Task.Delay variation) and fails when system load spikes, which is
+    the exact scenario record/replay is designed to diagnose.
+
+    Never referenced by Deflake.sln, so a plain "dotnet test" at the repo root does not run it
+    (the test is timing-flaky by design, and we don't want it failing on CI randomly).
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>RuntimeSampleProject</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Deflake.Runtime\Deflake.Runtime.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+</Project>
