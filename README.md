@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tests passing](https://img.shields.io/badge/tests-479%20passing-brightgreen)](https://github.com/FelixMiddelhoff/deflake)
 
-> **Early release (v0.1.0).** Core investigation pipeline complete and tested. More features coming: runtime record/replay helpers, test-smell analyzer, CI history mining.
+> **Release v0.1.0.** Core investigation pipeline complete and tested. Runtime record/replay (opt-in) now available. More features planned: test-smell analyzer, CI history mining.
 
 Don't retry the flaky test. Name the culprit.
 
@@ -52,6 +52,39 @@ For a complete walkthrough, see the [tutorial](docs/tutorial.md).
 
 ✅ **CI-friendly** — Designed for CI environments. Exit codes, machine-readable JSON output, timeout handling.
 
+✅ **Runtime record/replay (opt-in)** — Deflake.Runtime records TimeProvider and Random calls to make timing-dependent failures reproducible. Replay the exact sequence on demand for deterministic debugging.
+
+## Optional: Deflake.Runtime (Record & Replay)
+
+For tests using `DateTime.UtcNow` or `Random`, use **Deflake.Runtime** to make failures reproducible:
+
+```bash
+# Record a failing run
+deflake investigate MyProject.csproj --test MyTest --record-replay --runs 50
+
+# Replay the exact failure
+deflake repro report.json --replay <report>/runtime-sessions/MyTest.json
+```
+
+**In your test code:**
+```csharp
+using Deflake.Runtime;
+
+[Fact]
+public void MyTimingSensitiveTest()
+{
+    var timeProvider = DeflakeRecorder.TimeProvider;
+    var deadline = timeProvider.GetUtcNow().AddSeconds(5);
+    
+    // Test runs with exact timing from recording
+    Assert.True(timeProvider.GetUtcNow() < deadline);
+}
+```
+
+Sessions are JSON files (human-readable) stored in `<report>/runtime-sessions/`. Use `--record-replay` during investigation to capture and replay deterministically.
+
+See [Runtime Record/Replay Guide](docs/runtime-guide.md) for detailed examples and best practices.
+
 ## Supported Frameworks
 
 - **xUnit** 2.x
@@ -88,6 +121,7 @@ See [Verdicts Guide](docs/verdicts.md) for detailed explanations of all 10 verdi
 
 - **[Tutorial](docs/tutorial.md)** — Install, step-by-step investigation workflow, real examples, common scenarios, CI/CD integration
 - **[Verdicts Guide](docs/verdicts.md)** — All 10 verdict types, what they mean, what to do, evidence examples
+- **[Runtime Record/Replay Guide](docs/runtime-guide.md)** — Optional Deflake.Runtime for deterministic recording and replay of TimeProvider and Random calls; examples with expected output
 - **[CLI Reference](docs/cli-reference.md)** — Commands, options, exit codes, output formats
 
 ## Requirements
