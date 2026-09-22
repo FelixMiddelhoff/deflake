@@ -15,13 +15,13 @@ internal sealed class HttpRequestExceptionHeuristic : IHeuristic
         var combined = (errorMessage ?? "") + " " + (stackTrace ?? "");
         var lower = combined.ToLowerInvariant();
 
-        if (lower.Contains("httprequestexception") ||
-            lower.Contains("connection refused") ||
-            lower.Contains("connection reset") ||
-            lower.Contains("connection aborted") ||
-            lower.Contains("no connection could be made") ||
-            lower.Contains("unable to connect") ||
-            lower.Contains("network is unreachable"))
+        if (lower.Contains("httprequestexception")
+            || lower.Contains("connection refused")
+            || lower.Contains("connection reset")
+            || lower.Contains("connection aborted")
+            || lower.Contains("no connection could be made")
+            || lower.Contains("unable to connect")
+            || lower.Contains("network is unreachable"))
         {
             return new HeuristicResult(
                 "HttpRequestException",

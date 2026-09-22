@@ -15,12 +15,12 @@ internal sealed class AddressInUseHeuristic : IHeuristic
         var combined = (errorMessage ?? "") + " " + (stackTrace ?? "");
         var lower = combined.ToLowerInvariant();
 
-        if (lower.Contains("address already in use") ||
-            lower.Contains("address is already in use") ||
-            lower.Contains("port already in use") ||
-            lower.Contains("bind: address already in use") ||
-            lower.Contains("wsaeaddrinuse") ||
-            lower.Contains("eaddrinuse"))
+        if (lower.Contains("address already in use")
+            || lower.Contains("address is already in use")
+            || lower.Contains("port already in use")
+            || lower.Contains("bind: address already in use")
+            || lower.Contains("wsaeaddrinuse")
+            || lower.Contains("eaddrinuse"))
         {
             return new HeuristicResult(
                 "AddressInUse",

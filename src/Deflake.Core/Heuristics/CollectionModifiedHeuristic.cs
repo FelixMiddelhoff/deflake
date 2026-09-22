@@ -15,9 +15,9 @@ internal sealed class CollectionModifiedHeuristic : IHeuristic
         var combined = (errorMessage ?? "") + " " + (stackTrace ?? "");
         var lower = combined.ToLowerInvariant();
 
-        if (lower.Contains("collection was modified") ||
-            lower.Contains("collection has been modified") ||
-            (lower.Contains("invalidoperationexception") && lower.Contains("enumerat")))
+        if (lower.Contains("collection was modified")
+            || lower.Contains("collection has been modified")
+            || (lower.Contains("invalidoperationexception") && lower.Contains("enumerat")))
         {
             return new HeuristicResult(
                 "CollectionModified",

@@ -16,17 +16,17 @@ internal sealed class DateTimeAssertionHeuristic : IHeuristic
         var lower = combined.ToLowerInvariant();
 
         // Check for DateTime-related assertions
-        var hasDateTimeRef = lower.Contains("datetime") ||
-                             lower.Contains("utcnow") ||
-                             lower.Contains("datetimeoffset") ||
-                             lower.Contains("timespan") ||
-                             lower.Contains("date was");
+        var hasDateTimeRef = lower.Contains("datetime")
+                             || lower.Contains("utcnow")
+                             || lower.Contains("datetimeoffset")
+                             || lower.Contains("timespan")
+                             || lower.Contains("date was");
 
-        if (hasDateTimeRef &&
-            (lower.Contains("assert") ||
-             lower.Contains("was not equal to") ||
-             lower.Contains("expected") ||
-             lower.Contains("should be")))
+        if (hasDateTimeRef
+            && (lower.Contains("assert")
+             || lower.Contains("was not equal to")
+             || lower.Contains("expected")
+             || lower.Contains("should be")))
         {
             return new HeuristicResult(
                 "DateTimeAssertion",

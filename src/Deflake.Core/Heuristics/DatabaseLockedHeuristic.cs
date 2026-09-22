@@ -15,12 +15,12 @@ internal sealed class DatabaseLockedHeuristic : IHeuristic
         var combined = (errorMessage ?? "") + " " + (stackTrace ?? "");
         var lower = combined.ToLowerInvariant();
 
-        if (lower.Contains("database is locked") ||
-            lower.Contains("the database file is locked") ||
-            lower.Contains("locked out") ||
-            lower.Contains("timeout waiting for lock") ||
-            lower.Contains("sqliteerrorcode.cantopen") ||
-            lower.Contains("sqliteerrorcode.locked"))
+        if (lower.Contains("database is locked")
+            || lower.Contains("the database file is locked")
+            || lower.Contains("locked out")
+            || lower.Contains("timeout waiting for lock")
+            || lower.Contains("sqliteerrorcode.cantopen")
+            || lower.Contains("sqliteerrorcode.locked"))
         {
             return new HeuristicResult(
                 "DatabaseLocked",

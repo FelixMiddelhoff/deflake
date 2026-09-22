@@ -16,11 +16,11 @@ internal sealed class TimeoutHeuristic : IHeuristic
         var lower = combined.ToLowerInvariant();
 
         // Check for explicit timeout indicators
-        if (lower.Contains("timeout") ||
-            lower.Contains("timed out") ||
-            lower.Contains("task was canceled") ||
-            lower.Contains("operation timed out") ||
-            lower.Contains("operationcanceled"))
+        if (lower.Contains("timeout")
+            || lower.Contains("timed out")
+            || lower.Contains("task was canceled")
+            || lower.Contains("operation timed out")
+            || lower.Contains("operationcanceled"))
         {
             return new HeuristicResult(
                 "Timeout",
@@ -31,10 +31,10 @@ internal sealed class TimeoutHeuristic : IHeuristic
         }
 
         // Check for async timeout patterns
-        if (lower.Contains("task.wait") ||
-            lower.Contains("task.result") ||
-            lower.Contains("waitone") ||
-            lower.Contains("waitall"))
+        if (lower.Contains("task.wait")
+            || lower.Contains("task.result")
+            || lower.Contains("waitone")
+            || lower.Contains("waitall"))
         {
             return new HeuristicResult(
                 "Timeout",
