@@ -56,6 +56,14 @@ public sealed class VerdictInput
     /// <summary>One row per time zone.</summary>
     public ExperimentResult? TimeZone { get; init; }
 
+    /// <summary>
+    /// Live against replayed: whether a recorded <c>TimeProvider</c>/<c>Random</c> sequence
+    /// (<c>Deflake.Runtime</c>, opt-in) reproduces the failure as reliably as the live run. Null when
+    /// <c>--record-replay</c> was not passed, no <c>Deflake.Runtime</c> session was captured, or the
+    /// experiment never ran.
+    /// </summary>
+    public ExperimentResult? RecordReplay { get; init; }
+
     /// <summary>What the message and stack patterns matched. Supporting evidence only.</summary>
     public HeuristicFindings? Heuristics { get; init; }
 
@@ -114,6 +122,11 @@ public sealed class VerdictInput
         if (TimeZone is not null)
         {
             yield return (TimeZoneExperiment.TimeZoneFactor, TimeZone);
+        }
+
+        if (RecordReplay is not null)
+        {
+            yield return (RecordReplayExperiment.RecordReplayFactor, RecordReplay);
         }
     }
 }

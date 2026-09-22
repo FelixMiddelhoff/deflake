@@ -58,6 +58,7 @@ public sealed class VerdictEngine
         LoadExperiment.LoadFactor,
         CultureExperiment.CultureFactor,
         TimeZoneExperiment.TimeZoneFactor,
+        RecordReplayExperiment.RecordReplayFactor,
     };
 
     /// <summary>The answer for one test, built from the experiments that completed.</summary>
