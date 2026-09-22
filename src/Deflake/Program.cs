@@ -193,6 +193,8 @@ internal static class Program
         Console.Out.WriteLine("  --no-build                Do not rebuild before testing");
         Console.Out.WriteLine("  --report <dir>            Write reports to directory instead of console");
         Console.Out.WriteLine("  --format text|markdown|json  Output format (default: text)");
+        Console.Out.WriteLine("  --record-replay           Record TimeProvider/Random during isolation run,");
+        Console.Out.WriteLine("                            then replay deterministically (requires Deflake.Runtime)");
         return 0;
     }
 
@@ -263,6 +265,10 @@ internal static class Program
                 {
                     options.Format = args[++i];
                 }
+                else if (arg == "--record-replay")
+                {
+                    options.RecordReplay = true;
+                }
             }
             else if (target == null)
             {
@@ -277,18 +283,4 @@ internal static class Program
 
         return options;
     }
-}
-
-internal sealed class InvestigationOptions
-{
-    public List<string> Tests { get; set; } = new();
-    public string? FromTrx { get; set; }
-    public int Runs { get; set; } = 20;
-    public int MaxRuns { get; set; } = 20;
-    public int TimeoutMinutes { get; set; } = 60;
-    public string? Framework { get; set; }
-    public string Configuration { get; set; } = "Debug";
-    public bool NoBuild { get; set; }
-    public string? ReportDir { get; set; }
-    public string Format { get; set; } = "text";
 }

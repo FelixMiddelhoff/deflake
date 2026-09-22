@@ -92,6 +92,16 @@ internal sealed class InvestigationPipeline
     private async Task<Verdict> InvestigateTestAsync(TestResult failingTest, string targetPath, CancellationToken cancellationToken)
     {
         var testIdentity = new TestIdentity(failingTest.FullName, Path.GetFileNameWithoutExtension(targetPath));
+
+        // Prepare session directory for record/replay if enabled
+        string? recordPath = null;
+        if (_options.RecordReplay)
+        {
+            var sessionDir = Path.Combine(_options.ReportDir ?? Path.GetTempPath(), "runtime-sessions");
+            Directory.CreateDirectory(sessionDir);
+            recordPath = Path.Combine(sessionDir, $"{testIdentity.SafeFileName}.json");
+        }
+
         var baselineRequest = new TestRunRequest(targetPath)
         {
             Timeout = TimeSpan.FromMinutes(_options.TimeoutMinutes),
@@ -106,9 +116,14 @@ internal sealed class InvestigationPipeline
         };
 
         var results = new Dictionary<string, ExperimentResult>();
-        
+
+        // Inject DEFLAKE_RECORD env var into the isolation run if recording is enabled
+        var isolationRequest = recordPath is not null
+            ? CreateRequestWithRecordVar(context.BaselineRequest, recordPath)
+            : context.BaselineRequest;
+
         var isolation = new IsolationExperiment();
-        results[VerdictInput.IsolationFactor] = await isolation.RunAsync(context, cancellationToken);
+        results[VerdictInput.IsolationFactor] = await isolation.RunAsync(context with { BaselineRequest = isolationRequest }, cancellationToken);
 
         var scopeLadder = new ScopeLadderExperiment();
         results[ScopeLadderExperiment.ScopeFactor] = await scopeLadder.RunAsync(context, cancellationToken);
@@ -130,6 +145,15 @@ internal sealed class InvestigationPipeline
 
         var timeZone = new TimeZoneExperiment();
         results[TimeZoneExperiment.TimeZoneFactor] = await timeZone.RunAsync(context, cancellationToken);
+
+        // If a record/replay session file was captured, the RecordReplayExperiment would run here (step 16).
+        // For now, check if the record path exists so the infrastructure is ready:
+        if (recordPath is not null && File.Exists(recordPath))
+        {
+            // TODO: Instantiate and run RecordReplayExperiment once it exists in step 16
+            // var replay = new RecordReplayExperiment(recordPath);
+            // results["RecordReplay"] = await replay.RunAsync(context, cancellationToken);
+        }
 
         var registry = new HeuristicsRegistry();
         var heuristics = registry.Analyze(failingTest.ErrorMessage, failingTest.StackTrace);
@@ -185,5 +209,27 @@ internal sealed class InvestigationPipeline
 
         var pollution = new PollutionExperiment(otherTests);
         return await pollution.RunAsync(context, cancellationToken);
+    }
+
+    /// <summary>
+    /// Creates a test run request with the DEFLAKE_RECORD environment variable injected,
+    /// used to record TimeProvider and Random calls during a test run.
+    /// </summary>
+    private static TestRunRequest CreateRequestWithRecordVar(TestRunRequest baselineRequest, string recordPath)
+    {
+        var env = baselineRequest.EnvironmentVariables is not null
+            ? new Dictionary<string, string>(baselineRequest.EnvironmentVariables)
+            : new Dictionary<string, string>();
+
+        env["DEFLAKE_RECORD"] = recordPath;
+
+        return new TestRunRequest(baselineRequest.TargetPath)
+        {
+            Filter = baselineRequest.Filter,
+            RunSettingsPath = baselineRequest.RunSettingsPath,
+            EnvironmentVariables = env,
+            Timeout = baselineRequest.Timeout,
+            WorkingDirectory = baselineRequest.WorkingDirectory,
+        };
     }
 }
