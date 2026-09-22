@@ -50,7 +50,9 @@ public sealed class HeuristicsRegistry
 
         // Sort by confidence descending
         foreach (var result in results.OrderByDescending(r => r.Confidence))
+        {
             findings.Add(result);
+        }
 
         return findings;
     }

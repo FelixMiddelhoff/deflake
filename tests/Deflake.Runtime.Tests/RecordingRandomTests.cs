@@ -229,8 +229,8 @@ public class RecordingRandomTests
         const int perStream = 300;
 
         await Task.WhenAll(
-            Task.Run(() => { for (var i = 0; i < perStream; i++) ordering.Next(); }),
-            Task.Run(() => { for (var i = 0; i < perStream; i++) payload.NextDouble(); }));
+            Task.Run(() => { for (var i = 0; i < perStream; i++) { ordering.Next(); } }),
+            Task.Run(() => { for (var i = 0; i < perStream; i++) { payload.NextDouble(); } }));
 
         Assert.Equal(perStream, session.RandomStreams["ordering"].Count);
         Assert.Equal(perStream, session.RandomStreams["payload"].Count);
