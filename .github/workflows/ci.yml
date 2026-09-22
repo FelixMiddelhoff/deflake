@@ -23,7 +23,13 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
       - name: Test with coverage
-        run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory coverage --logger "console;verbosity=detailed" --diag diagnostics.txt
+        run: |
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            dotnet test --configuration Release --no-build --logger "console;verbosity=detailed" --diag diagnostics.txt
+          else
+            dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory coverage --logger "console;verbosity=detailed" --diag diagnostics.txt
+          fi
+        shell: bash
       - uses: actions/upload-artifact@v4
         if: matrix.os == 'ubuntu-latest'
         with:
