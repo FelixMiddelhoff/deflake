@@ -117,13 +117,11 @@ internal sealed class InvestigationPipeline
 
         var results = new Dictionary<string, ExperimentResult>();
 
-        // Inject DEFLAKE_RECORD env var into the isolation run if recording is enabled
-        var isolationRequest = recordPath is not null
-            ? CreateRequestWithRecordVar(context.BaselineRequest, recordPath)
-            : context.BaselineRequest;
-
         var isolation = new IsolationExperiment();
-        results[VerdictInput.IsolationFactor] = await isolation.RunAsync(context with { BaselineRequest = isolationRequest }, cancellationToken);
+        results[VerdictInput.IsolationFactor] = await isolation.RunAsync(context, cancellationToken);
+
+        // TODO: Inject DEFLAKE_RECORD env var into isolation run when RecordReplayExperiment is implemented.
+        // For now, recordPath is prepared but not used.
 
         var scopeLadder = new ScopeLadderExperiment();
         results[ScopeLadderExperiment.ScopeFactor] = await scopeLadder.RunAsync(context, cancellationToken);

@@ -31,6 +31,24 @@ public sealed class TestIdentity
     /// <summary>The test assembly, for example <c>Shop.Tests.dll</c>.</summary>
     public string AssemblyName { get; }
 
+    /// <summary>
+    /// Filesystem-safe filename derived from <see cref="FullyQualifiedName"/>. Replaces characters
+    /// invalid in filenames with underscores. Used for record/replay session files.
+    /// </summary>
+    public string SafeFileName
+    {
+        get
+        {
+            var invalid = new[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|', '+', '(', ')' };
+            var safe = FullyQualifiedName;
+            foreach (var c in invalid)
+            {
+                safe = safe.Replace(c, '_');
+            }
+            return safe;
+        }
+    }
+
     public override string ToString()
     {
         return $"{FullyQualifiedName} ({AssemblyName})";
