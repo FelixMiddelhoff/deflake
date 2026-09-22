@@ -23,12 +23,17 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
       - name: Test with coverage
-        run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory coverage
+        run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory coverage --logger "console;verbosity=detailed" --diag diagnostics.txt
       - uses: actions/upload-artifact@v4
         if: matrix.os == 'ubuntu-latest'
         with:
           name: coverage
           path: coverage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-diagnostics-${{ matrix.os }}
+          path: diagnostics.txt
 
   format:
     runs-on: ubuntu-latest
