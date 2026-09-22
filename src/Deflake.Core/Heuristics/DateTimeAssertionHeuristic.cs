@@ -22,10 +22,11 @@ internal sealed class DateTimeAssertionHeuristic : IHeuristic
                              lower.Contains("timespan") ||
                              lower.Contains("date was");
 
-        if (hasDateTimeRef && (lower.Contains("assert") ||
-                               lower.Contains("was not equal to") ||
-                               lower.Contains("expected") ||
-                               lower.Contains("should be")))
+        if (hasDateTimeRef &&
+            (lower.Contains("assert") ||
+             lower.Contains("was not equal to") ||
+             lower.Contains("expected") ||
+             lower.Contains("should be")))
         {
             return new HeuristicResult(
                 "DateTimeAssertion",

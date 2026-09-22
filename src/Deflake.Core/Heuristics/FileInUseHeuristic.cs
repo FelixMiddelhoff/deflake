@@ -15,12 +15,12 @@ internal sealed class FileInUseHeuristic : IHeuristic
         var combined = (errorMessage ?? "") + " " + (stackTrace ?? "");
         var lower = combined.ToLowerInvariant();
 
-        if ((lower.Contains("file") && lower.Contains("is in use")) ||
-            lower.Contains("file in use") ||
-            lower.Contains("access to the file is denied") ||
-            lower.Contains("the file is being used by another process") ||
-            (lower.Contains("ioexception") && (lower.Contains("access denied") || lower.Contains("in use"))) ||
-            lower.Contains("sharing violation"))
+        if (((lower.Contains("file") && lower.Contains("is in use")) ||
+             lower.Contains("file in use") ||
+             lower.Contains("access to the file is denied") ||
+             lower.Contains("the file is being used by another process") ||
+             (lower.Contains("ioexception") && (lower.Contains("access denied") || lower.Contains("in use"))) ||
+             lower.Contains("sharing violation")))
         {
             return new HeuristicResult(
                 "FileInUse",

@@ -17,7 +17,7 @@ internal sealed class CollectionModifiedHeuristic : IHeuristic
 
         if (lower.Contains("collection was modified") ||
             lower.Contains("collection has been modified") ||
-            lower.Contains("invalidoperationexception") && lower.Contains("enumerat"))
+            (lower.Contains("invalidoperationexception") && lower.Contains("enumerat")))
         {
             return new HeuristicResult(
                 "CollectionModified",
